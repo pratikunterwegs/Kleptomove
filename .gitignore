@@ -3,7 +3,6 @@
 tmp/
 bin/Debug
 bin/Release
-bin/media
 .Rproj.user
 
 *zip
