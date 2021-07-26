@@ -117,4 +117,4 @@ This stores the simulation data locally.
 
 ## Simulation Data
 
-Simulation data are available from DataverseNL as a draft: \textsf{https://dataverse.nl/privateurl.xhtml?token=1467641e-2c30-486b-a059-1e37be815b7c}; persistent link after publication: \textsf{doi.org/10.34894/JFSC41}.
+Simulation data are available from DataverseNL as a draft: https://dataverse.nl/privateurl.xhtml?token=1467641e-2c30-486b-a059-1e37be815b7c; persistent link after publication: doi.org/10.34894/JFSC41.
