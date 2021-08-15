@@ -216,7 +216,7 @@ namespace cine2 {
         if ( ((g_ == 0 ) | (g_ % 10 == 0)) && (g_ < 200)) {
 
           // log individual positions for some individuals
-          const std::string stri_pos = std::string(param_.outdir + "/" + std::to_string(t_) + "pos.csv");
+          const std::string stri_pos = std::string(param_.outdir + "/" + std::to_string(g_) + "pos.csv");
           std::ofstream writepos;
 
           writepos.open(stri_pos, std::ofstream::out | std::ofstream::app);
@@ -226,7 +226,7 @@ namespace cine2 {
           }
 
           for (int i = 0; i < 10; i++) {
-            writepos << i << "," << agents_pop[i].pos.x << "," << agents_pop[i].pos.y << "," << t_ << "\n";
+            writepos << i << "," << agents_.pop[i].pos.x << "," << agents_.pop[i].pos.y << "," << t_ << "\n";
           }
 
           writepos.close();
