@@ -213,7 +213,26 @@ namespace cine2 {
 
         }
 
-        //to print one screenshot end
+        if ( ((g_ == 0 ) | (g_ % 10 == 0)) && (g_ < 200)) {
+
+          // log individual positions for some individuals
+          const std::string stri_pos = std::string(param_.outdir + "/" + std::to_string(t_) + "pos.csv");
+          std::ofstream writepos;
+
+          writepos.open(stri_pos, std::ofstream::out | std::ofstream::app);
+          // check g == 0 and write headers
+          if(g_ == 0) {
+            writepos << "id,x,y,t\n";
+          }
+
+          for (int i = 0; i < 10; i++) {
+            writepos << i << "," << agents_pop[i].pos.x << "," << agents_pop[i].pos.y << "," << t_ << "\n";
+          }
+
+          writepos.close();
+        }      
+
+        //gen ends here
       }
 
       if (!param_.outdir.empty() && g_ > G - 10 ) {
@@ -282,8 +301,6 @@ namespace cine2 {
         items[i] = std::min(floor(max_item_cap), floor(items[i] + 1.0f));
       }
     }
-
-
 
     //landscape_.update_occupancy(Layers::foragers_count, Layers::foragers, Layers::klepts_count, Layers::klepts, Layers::handlers_count, Layers::handlers, Layers::nonhandlers, agents_.pop.cbegin(), agents_.pop.cend(), param_.landscape.foragers_kernel);
 
