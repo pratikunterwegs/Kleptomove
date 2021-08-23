@@ -199,34 +199,37 @@ namespace cine2 {
         
         // to print one screenshot
         // print first 150 gens and then every 25 gens
-        if ( ((g_ % 25 == 0) | (g_ <= 150) ) && t_ == 50) {
+        if ( ((g_ % 25 == 0) | (g_ <= 250) ) && t_ == 50) {
 
-           const std::string strGen_tmp = std::to_string(g_);
-           const std::string strGen = std::string(5 - strGen_tmp.length(), '0') + strGen_tmp;
-           Image screenshot3(std::string("../settings/emptyPNG.png"));
-           layer_to_image_channel(screenshot3, landscape_[Landscape::Layers::foragers_count], blue);
-           layer_to_image_channel(screenshot3, landscape_[Landscape::Layers::klepts_count], red);
-           layer_to_image_channel(screenshot3, landscape_[Landscape::Layers::handlers_count], green);
-           layer_to_image_channel_2(screenshot3, (landscape_[Landscape::Layers::items]), alha, static_cast<float>(param_.landscape.max_item_cap));
-           //layer_to_image_channel(screenshot2, landscape_[Landscape::Layers::items], alha);
-           save_image(screenshot3, std::string(param_.outdir + "/" + strGen + ".png"));
+           //const std::string strGen_tmp = std::to_string(g_);
+           //const std::string strGen = std::string(5 - strGen_tmp.length(), '0') + strGen_tmp;
+           //Image screenshot3(std::string("../settings/emptyPNG.png"));
+           //layer_to_image_channel(screenshot3, landscape_[Landscape::Layers::foragers_count], blue);
+           //layer_to_image_channel(screenshot3, landscape_[Landscape::Layers::klepts_count], red);
+           //layer_to_image_channel(screenshot3, landscape_[Landscape::Layers::handlers_count], green);
+           //layer_to_image_channel_2(screenshot3, (landscape_[Landscape::Layers::items]), alha, static_cast<float>(param_.landscape.max_item_cap));
+           ////layer_to_image_channel(screenshot2, landscape_[Landscape::Layers::items], alha);
+           //save_image(screenshot3, std::string(param_.outdir + "/" + strGen + ".png"));
 
         }
 
-        if ( ((g_ == 0 ) | (g_ % 10 == 0)) && (g_ < 200)) {
+        if ( ((g_ == 0 ) | (g_ % 10 == 0)) | (g_ == 249)) {
 
           // log individual positions for some individuals
-          const std::string stri_pos = std::string(param_.outdir + "/" + std::to_string(g_) + "pos.csv");
+          //const std::string stri_pos = std::string(param_.outdir + "/" + std::to_string(g_) + "pos.csv");
           std::ofstream writepos;
 
-          writepos.open(stri_pos, std::ofstream::out | std::ofstream::app);
+          const std::string strGen_tmp = std::to_string(g_);
+          const std::string strGen = std::string(param_.outdir + "/") + std::string(5 - strGen_tmp.length(), '0') + strGen_tmp + "_pos.csv";
+
+          writepos.open(strGen, std::ofstream::out | std::ofstream::app);
           // check g == 0 and write headers
-          if(g_ == 0) {
-            writepos << "id,x,y,t\n";
+          if((t_ == 0)) {
+            writepos << "id,g,x,y,t\n";
           }
 
-          for (int i = 0; i < 10; i++) {
-            writepos << i << "," << agents_.pop[i].pos.x << "," << agents_.pop[i].pos.y << "," << t_ << "\n";
+          for (int i = 0; i < 100; i++) {
+            writepos << i << "," << g_ << "," << agents_.pop[i].pos.x << "," << agents_.pop[i].pos.y << "," << t_ << "\n";
           }
 
           writepos.close();
@@ -235,37 +238,37 @@ namespace cine2 {
         //gen ends here
       }
 
-      if (!param_.outdir.empty() && g_ > G - 10 ) {
+      //if (!param_.outdir.empty() && g_ > G - 10 ) {
 
-        const std::string stritems = std::string(param_.outdir + "/" + std::to_string(g_) + "items.txt");
-        const std::string strforagers = std::string(param_.outdir + "/" + std::to_string(g_) + "foragers.txt");
-        const std::string strklepts = std::string(param_.outdir + "/" + std::to_string(g_) + "klepts.txt");
-        const std::string strintakefor = std::string(param_.outdir + "/" + std::to_string(g_) + "foragers_intake.txt");
-        const std::string strintakeklept = std::string(param_.outdir + "/" + std::to_string(g_) + "klepts_intake.txt");
-        //const std::string strcapacity = std::string(std::to_string(g_) + param_.outdir + "capacity.txt");
-        std::ofstream writeoutitems(stritems);
-        std::ofstream writeoutforagers(strforagers);
-        std::ofstream writeoutklepts(strklepts);
-        std::ofstream writeoutintakefor(strintakefor);
-        std::ofstream writeoutintakeklept(strintakeklept);
-        //std::ofstream writeoutcapacity(strcapacity);
+      //  const std::string stritems = std::string(param_.outdir + "/" + std::to_string(g_) + "items.txt");
+      //  const std::string strforagers = std::string(param_.outdir + "/" + std::to_string(g_) + "foragers.txt");
+      //  const std::string strklepts = std::string(param_.outdir + "/" + std::to_string(g_) + "klepts.txt");
+      //  const std::string strintakefor = std::string(param_.outdir + "/" + std::to_string(g_) + "foragers_intake.txt");
+      //  const std::string strintakeklept = std::string(param_.outdir + "/" + std::to_string(g_) + "klepts_intake.txt");
+      //  //const std::string strcapacity = std::string(std::to_string(g_) + param_.outdir + "capacity.txt");
+      //  std::ofstream writeoutitems(stritems);
+      //  std::ofstream writeoutforagers(strforagers);
+      //  std::ofstream writeoutklepts(strklepts);
+      //  std::ofstream writeoutintakefor(strintakefor);
+      //  std::ofstream writeoutintakeklept(strintakeklept);
+      //  //std::ofstream writeoutcapacity(strcapacity);
 
-        layer_to_text(landscape_[Landscape::Layers::items_rec], writeoutitems);
-        layer_to_text(landscape_[Landscape::Layers::foragers_rec], writeoutforagers);
-        layer_to_text(landscape_[Landscape::Layers::klepts_rec], writeoutklepts);
-        layer_to_text(landscape_[Landscape::Layers::foragers_intake], writeoutintakefor);
-        layer_to_text(landscape_[Landscape::Layers::klepts_intake], writeoutintakeklept);
-        //layer_to_text(landscape_[Landscape::Layers::capacity], writeoutcapacity);
+      //  layer_to_text(landscape_[Landscape::Layers::items_rec], writeoutitems);
+      //  layer_to_text(landscape_[Landscape::Layers::foragers_rec], writeoutforagers);
+      //  layer_to_text(landscape_[Landscape::Layers::klepts_rec], writeoutklepts);
+      //  layer_to_text(landscape_[Landscape::Layers::foragers_intake], writeoutintakefor);
+      //  layer_to_text(landscape_[Landscape::Layers::klepts_intake], writeoutintakeklept);
+      //  //layer_to_text(landscape_[Landscape::Layers::capacity], writeoutcapacity);
 
 
 
-        writeoutitems.close();
-        writeoutforagers.close();
-        writeoutklepts.close();
-        writeoutintakefor.close();
-        writeoutintakeklept.close();
-        //writeoutcapacity.close();
-      }
+      //  writeoutitems.close();
+      //  writeoutforagers.close();
+      //  writeoutklepts.close();
+      //  writeoutintakefor.close();
+      //  writeoutintakeklept.close();
+      //  //writeoutcapacity.close();
+      //}
 
       assess_fitness();
       assess_inds();
