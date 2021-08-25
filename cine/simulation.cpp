@@ -213,7 +213,20 @@ namespace cine2 {
 
         }
 
-        if ( ((g_ == 0 ) | (g_ % 10 == 0)) | (g_ == 249)) {
+        if ( ((g_ == 0 ) | (g_ % 10 == 0)) | (g_ == 249) | (g_ == 998) ) {
+
+            // save screenshots
+            if (t_ == 200) {
+               const std::string strGen_tmp = std::to_string(g_);
+               const std::string strGen = std::string(5 - strGen_tmp.length(), '0') + strGen_tmp;
+               Image screenshot3(std::string("../settings/emptyPNG.png"));
+               layer_to_image_channel(screenshot3, landscape_[Landscape::Layers::foragers_count], blue);
+               layer_to_image_channel(screenshot3, landscape_[Landscape::Layers::klepts_count], red);
+               layer_to_image_channel(screenshot3, landscape_[Landscape::Layers::handlers_count], green);
+               layer_to_image_channel_2(screenshot3, (landscape_[Landscape::Layers::items]), alha, static_cast<float>(param_.landscape.max_item_cap));
+               //layer_to_image_channel(screenshot2, landscape_[Landscape::Layers::items], alha);
+               save_image(screenshot3, std::string(param_.outdir + "/" + strGen + ".png"));
+          }
 
           // log individual positions for some individuals
           //const std::string stri_pos = std::string(param_.outdir + "/" + std::to_string(g_) + "pos.csv");
