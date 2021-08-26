@@ -199,26 +199,44 @@ namespace cine2 {
         
         // to print one screenshot
         // print first 150 gens and then every 25 gens
-        if ( ((g_ % 25 == 0) | (g_ <= 250) ) && t_ == 50) {
+        // if ( ((g_ % 25 == 0) | (g_ <= 250) ) && t_ == 50) {
 
-           //const std::string strGen_tmp = std::to_string(g_);
-           //const std::string strGen = std::string(5 - strGen_tmp.length(), '0') + strGen_tmp;
-           //Image screenshot3(std::string("../settings/emptyPNG.png"));
-           //layer_to_image_channel(screenshot3, landscape_[Landscape::Layers::foragers_count], blue);
-           //layer_to_image_channel(screenshot3, landscape_[Landscape::Layers::klepts_count], red);
-           //layer_to_image_channel(screenshot3, landscape_[Landscape::Layers::handlers_count], green);
-           //layer_to_image_channel_2(screenshot3, (landscape_[Landscape::Layers::items]), alha, static_cast<float>(param_.landscape.max_item_cap));
-           ////layer_to_image_channel(screenshot2, landscape_[Landscape::Layers::items], alha);
-           //save_image(screenshot3, std::string(param_.outdir + "/" + strGen + ".png"));
+        //    //const std::string strGen_tmp = std::to_string(g_);
+        //    //const std::string strGen = std::string(5 - strGen_tmp.length(), '0') + strGen_tmp;
+        //    //Image screenshot3(std::string("../settings/emptyPNG.png"));
+        //    //layer_to_image_channel(screenshot3, landscape_[Landscape::Layers::foragers_count], blue);
+        //    //layer_to_image_channel(screenshot3, landscape_[Landscape::Layers::klepts_count], red);
+        //    //layer_to_image_channel(screenshot3, landscape_[Landscape::Layers::handlers_count], green);
+        //    //layer_to_image_channel_2(screenshot3, (landscape_[Landscape::Layers::items]), alha, static_cast<float>(param_.landscape.max_item_cap));
+        //    ////layer_to_image_channel(screenshot2, landscape_[Landscape::Layers::items], alha);
+        //    //save_image(screenshot3, std::string(param_.outdir + "/" + strGen + ".png"));
 
-        }
+        // }
 
-        if ( ((g_ == 0 ) | (g_ % 10 == 0)) | (g_ == 249) | (g_ == 998) ) {
+        if ( ((g_ == 0 ) | (g_ % 10 == 0)) | (g_ >= param_.Gfix ) ) {
 
-            // save screenshots
+            // screenshots every 1000 timesteps for final gen
+            if( g_ == 250) {
+              if( (t_ % 1000 == 0) | (t_ == T - 1) ) {
+                const std::string strGen_tmp = std::to_string(g_);
+                const std::string strGen = "land_gen" + std::string(5 - strGen_tmp.length(), '0') + strGen_tmp;
+                
+                const std::string str_t_tmp = std::to_string(t_);
+                const std::string str_t = "_t" + std::string(4 - strGen_tmp.length(), '0') + str_t_tmp;
+                
+                Image screenshot3(std::string("../settings/emptyPNG.png"));
+                layer_to_image_channel(screenshot3, landscape_[Landscape::Layers::foragers_count], blue);
+                layer_to_image_channel(screenshot3, landscape_[Landscape::Layers::klepts_count], red);
+                layer_to_image_channel(screenshot3, landscape_[Landscape::Layers::handlers_count], green);
+                layer_to_image_channel_2(screenshot3, (landscape_[Landscape::Layers::items]), alha, static_cast<float>(param_.landscape.max_item_cap));
+                //layer_to_image_channel(screenshot2, landscape_[Landscape::Layers::items], alha);
+                save_image(screenshot3, std::string(param_.outdir + "/" + strGen + str_t + ".png"));
+              }
+            } else {
+              // save screenshots
             if (t_ == 200) {
                const std::string strGen_tmp = std::to_string(g_);
-               const std::string strGen = std::string(5 - strGen_tmp.length(), '0') + strGen_tmp;
+               const std::string strGen = "land_gen" + std::string(5 - strGen_tmp.length(), '0') + strGen_tmp;
                Image screenshot3(std::string("../settings/emptyPNG.png"));
                layer_to_image_channel(screenshot3, landscape_[Landscape::Layers::foragers_count], blue);
                layer_to_image_channel(screenshot3, landscape_[Landscape::Layers::klepts_count], red);
@@ -226,7 +244,9 @@ namespace cine2 {
                layer_to_image_channel_2(screenshot3, (landscape_[Landscape::Layers::items]), alha, static_cast<float>(param_.landscape.max_item_cap));
                //layer_to_image_channel(screenshot2, landscape_[Landscape::Layers::items], alha);
                save_image(screenshot3, std::string(param_.outdir + "/" + strGen + ".png"));
-          }
+              }
+            }
+           
 
           // log individual positions for some individuals
           //const std::string stri_pos = std::string(param_.outdir + "/" + std::to_string(g_) + "pos.csv");
