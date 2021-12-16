@@ -213,7 +213,7 @@ namespace cine2 {
 
         // }
 
-        if ( ((g_ == 0 ) | (g_ % 10 == 0)) | (g_ >= param_.Gfix ) ) {
+        if ( (g_ >= param_.Gfix ) ) {
 
             // screenshots every 1000 timesteps for final gen
             if( g_ == 250) {
