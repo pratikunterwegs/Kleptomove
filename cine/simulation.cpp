@@ -217,7 +217,7 @@ namespace cine2 {
 
             // screenshots every 1000 timesteps for final gen
             if( g_ == 250) {
-              if( (t_ % 1000 == 0) | (t_ == T - 1) ) {
+              if( (t_ > T - 5000) ) {
                 const std::string strGen_tmp = std::to_string(g_);
                 const std::string strGen = "land_gen" + std::string(5 - strGen_tmp.length(), '0') + strGen_tmp;
                 
