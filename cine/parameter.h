@@ -62,6 +62,7 @@ namespace cine2 {
     int Tfix;             // time ticks per fixed generation
     std::string outdir;   // output folder
     int omp_threads;
+    float win_rate;
 
     struct ind_param
     {
@@ -79,7 +80,6 @@ namespace cine2 {
       float mutation_knockout;
       float noise_sigma;
       float cmplx_penalty;
-      float win_rate;
 
       std::array<int, 3> input_layers;
       std::array<float, 3> input_mask;
