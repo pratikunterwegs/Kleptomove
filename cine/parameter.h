@@ -79,6 +79,7 @@ namespace cine2 {
       float mutation_knockout;
       float noise_sigma;
       float cmplx_penalty;
+      float win_rate;
 
       std::array<int, 3> input_layers;
       std::array<float, 3> input_mask;
