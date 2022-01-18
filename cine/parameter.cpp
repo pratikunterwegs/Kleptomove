@@ -27,6 +27,7 @@ namespace cine2 {
     clp_optional_val(Gburnin, 0);
     clp_required(G);
     clp_required(T);
+    clp_optional_val(win_rate, param.win_rate); // add win rate parameter
 
     clp_optional_val(Gfix, param.G);
     clp_optional_val(Tfix, param.T);
@@ -119,6 +120,7 @@ namespace cine2 {
     stream(Tfix);
     stream_str(outdir);
     stream(omp_threads);
+    stream(win_rate);
     os << '\n';
 
     stream(agents.N);

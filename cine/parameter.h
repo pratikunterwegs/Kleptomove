@@ -62,6 +62,7 @@ namespace cine2 {
     int Tfix;             // time ticks per fixed generation
     std::string outdir;   // output folder
     int omp_threads;
+    float win_rate;
 
     struct ind_param
     {

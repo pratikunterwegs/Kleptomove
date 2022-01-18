@@ -357,6 +357,7 @@ namespace cine2 {
   {
     using Layers = Landscape::Layers;
     const float detection_rate = param_.landscape.detection_rate;
+    const float win_rate = param_.win_rate;
     //LayerView foragers_count = landscape_[Layers::foragers_count];
     //LayerView klepts_count = landscape_[Layers::klepts_count];
     //LayerView capacity = landscape_[Layers::capacity];
@@ -428,7 +429,7 @@ namespace cine2 {
 
 
       std::bernoulli_distribution fight(prob_to_fight);								//sampling whether fight occurs
-      std::bernoulli_distribution initiator_wins(1.0)/*initiator always wins*/;		//sampling whether the initiator wins or not
+      std::bernoulli_distribution initiator_wins(win_rate)/*initiator always wins*/;		//sampling whether the initiator wins or not
       if (conflicts_v[i].second->handling) {			///isn't this always true?
         if (fight(rnd::reng)) {
           if (initiator_wins(rnd::reng)) {
