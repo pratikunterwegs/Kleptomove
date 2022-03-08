@@ -30,6 +30,58 @@ Please cite this simulation as
 }
 ```
 
+## Simulation Parameters in `config.ini`
+
+The default simulation parameters are set using the `config.ini` file in `bin/settings/`, and can also be passed using the command line.
+
+This section describes what the important parameters mean and their acceptable values. If a parameter is not described here, it is not varied in the simulation.
+
+### Generations and timesteps
+
+```ini
+Gburnin=0       # how many generations to run before displaying output
+G=10            # how many generations to run
+T=400           # the number of timesteps per generation
+Gfix=998        # the number of generations after which to run one, long generation
+                # i.e., in generation 999, there will be a final, long generation
+Tfix=10000      # the number of timesteps in the final, long generation
+```
+
+### Individuals and their options
+
+```ini
+agents.N=10000              # the number of individuals
+agents.obligate=1           # whether agents follow a fixed strategy (1 = True, 0 = False)
+agents.forage=0		        # whether agents are foragers (1 = True), 
+                            # or can they steal (0 = False)
+agents.sprout_radius=512    # how far away from a parent the offspring is initialised
+
+agents.mutation_prob=0.001  # the probability of each cue preference mutating
+agents.mutation_step=0.01   # the scale of a Cauchy distribution, which determines
+                            # the potential size of the mutation
+agents.noise_sigma=0.1      # the noise around individuals' assessment of their landscape
+agents.input_mask={1,1,1}   # whether agents can sense their environment
+                            # setting this to {0,0,0} leads to random movement
+```
+
+```ini
+agents.flee_radius=5        # how far a kleptoparasite can displace its target
+agents.handling_time=5      # the handling time for a prey item
+win_rate=1.0                # the probability of a kleptoparasite successfully stealing
+```
+
+### Landscape options
+
+```ini
+landscape.max_item_cap=5.0                  # the carrying capacity of each cell
+landscape.item_growth=0.01		            # the maximum rate at which an item appears, called r_max
+landscape.detection_rate=0.20               # the probability of an agent detecting any one item
+landscape.capacity.image=kernels32.png      # the gridded landscape from where the underlying growth rate is derived
+landscape.capacity.channel=0                # which layer of the png image holds the growth rate 0: red, 1: green, 2: blue
+
+outdir=data         # where the data is saved
+```
+
 ## Simulation Source Code: Key Files
 
 The simulation source code is in `cine/`, while code for a GUI is in `cinema/`. This simulation is Windows only.
